@@ -38,5 +38,5 @@ farm_animals_tax <- tibble(
 farm_animals_tax
 
 #difference between timepoint 1 and 2
-difference <- more_animals - named_farmers_animals
-difference
+difference <- farm_animals_tax$number_timepoint_2 - farm_animals_tax$number_timepoint_1
+
