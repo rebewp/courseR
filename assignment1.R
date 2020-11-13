@@ -27,9 +27,9 @@ number_of_tax_per_2000_in_a_breed <- floor((more_animals - named_farmers_animals
 #maximum payment
 max(number_of_tax_per_2000_in_a_breed)
 
-#tibble data
+#tibble data, characters to factor
 farm_animals_tax <- tibble(
-  breed = c("chicken", "cows", "horses"),
+  breed = as.factor(c("chicken", "cows", "horses")),
   number_timepoint_1 = c(named_farmers_animals[1], named_farmers_animals[2], named_farmers_animals[3]),
   number_timepoint_2 = c(more_animals[1], more_animals[2], more_animals[3]),
   number_of_tax_units = number_of_tax_per_2000_in_a_breed
