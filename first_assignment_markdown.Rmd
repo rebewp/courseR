@@ -1,0 +1,26 @@
+---
+title: "First Assignment"
+author: "Ana, Philipp"
+date: "13 11 2020"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+## What do we expect from this course?
+
+- text
+- text
+- text
+- text 
+
+
+### What does R look like?
+```{r, out.height='10%', fig.align='center'}
+knitr::include_graphics('r_logo.png')
+```
+
+
+
+
+## Some texts we would like to talk about:
