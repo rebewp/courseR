@@ -7,35 +7,31 @@ named_farmers_animals
 farmers_animals_2 <- c(chicken = 53323, cows = 1334, horses = 4323)
 farmers_animals_2
 # more: 75% chicken, 30% cows, 50% horses ; absolute numbers; rounding with ceiling()
-chicken_count <- farmers_animals[1]
-chicken_count <- ceiling(chicken_count + chicken_count * 0.75)
-chicken_count
+#breed function = number of animals plus new ones on depending percentage
+breed <- function(x, y){
+  (ceiling(x + x * y))
+}
 
-cows_count <- farmers_animals[2]
-cows_count <- ceiling(cows_count + cows_count * 0.3)
-cows_count
+chicken_breed <- breed(farmers_animals[1], 0.75)
+cows_breed <- breed(farmers_animals[2], 0.3)
+horse_breed <- breed(farmers_animals[3], 0.5)
 
-horses_count <- farmers_animals[3]
-horses_count <- ceiling(horses_count + horses_count * 0.5)
-horses_count
-
-more_animals <- c(chicken = chicken_count, cows = cows_count, horses = horses_count)
+#assigning increased amount of animals to a vector
+more_animals <- c(chicken = chicken_breed, cows = cows_breed, horses = horse_breed)
 more_animals
 
 #tax amount x for every 2000th
-?floor
-?max
-floor(chicken_count/2000)
-floor(cows_count/2000)
-floor(horses_count/2000)
+number_of_tax_per_2000_in_a_breed <- floor((more_animals - farmers_animals)/2000)
 
-##todo max 
+#maximum payment
+max(number_of_tax_per_2000_in_a_breed)
+
 #tibble data
 farm_animals_tax <- tibble(
-  breed = ,
-  number_timepoint_1 = ,
-  number_timepoint_2 = ,
-  number_of_tax_units = 
+  breed = 1:2,
+  number_timepoint_1 = more_animals,
+  number_timepoint_2 = more_animals,
+  number_of_tax_units = tax_per_2000_in_a_breed
 )
 
 #difference between timepoint 1 and 2
