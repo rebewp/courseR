@@ -16,13 +16,7 @@ output:
 
 
 ### What does R look like?
-
-```r
-knitr::include_graphics('r_logo.png')
-```
-
-<img src="r_logo.png" width="619" height="10%" style="display: block; margin: auto;" />
-
+![Picture of the R logo, echo=False](r_logo.png){width=300px}
 
 
 

@@ -16,10 +16,7 @@ output:
 
 
 ### What does R look like?
-```{r, Rpicture, out.height='10%', fig.align='center'}
-knitr::include_graphics('r_logo.png')
-```
-
+![Picture of the R logo](r_logo.png){width=300px}
 
 
 
