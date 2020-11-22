@@ -1,6 +1,6 @@
 ---
-title: "First Assignment"
-author: "Ana, Philipp"
+title: "First Assignment Markdown"
+author: "Group 2: Ana, Philipp"
 date: "13 11 2020"
 output: 
   html_document: 

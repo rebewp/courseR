@@ -1,6 +1,6 @@
 ---
-title: "First Assignment"
-author: "Ana, Philipp"
+title: "First Assignment Markdown"
+author: "Group 2: Ana, Philipp"
 date: "13 11 2020"
 output: 
   html_document: 
@@ -16,7 +16,7 @@ output:
 
 
 ### What does R look like?
-```{r, out.height='10%', fig.align='center'}
+```{r, Rpicture, out.height='10%', fig.align='center'}
 knitr::include_graphics('r_logo.png')
 ```
 
