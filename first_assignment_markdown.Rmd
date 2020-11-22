@@ -1,10 +1,11 @@
 ---
 title: "First Assignment Markdown"
-author: "Group 2: Ana, Philipp"
+author: 'Group 2: Ana, Philipp'
 date: "13 11 2020"
-output: 
-  html_document: 
+output:
+  html_document:
     keep_md: yes
+  pdf_document: default
 ---
 
 ### What do we expect from this course?

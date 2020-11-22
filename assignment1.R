@@ -1,5 +1,7 @@
 library(tidyverse)
-#Assignment first session 
+#Assignment first session
+
+#declaring animal vectors
 farmers_animals <- c(53323, 1334, 4323)
 named_farmers_animals <- set_names(farmers_animals, c("chicken", "cows", "horses"))
 named_farmers_animals
