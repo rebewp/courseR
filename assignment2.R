@@ -21,3 +21,4 @@ ches_2017_modified <- read_csv("datasets/ches_2017_modified.csv", skip = 4)
 
 publishers <- read_xlsx("datasets/publishers.xlsx")# we first have to install and load the readrxl package 
 
+spotify2018 <- read_csv("datasets/spotify2018.csv")# just as the first .csv file
