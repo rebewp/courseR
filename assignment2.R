@@ -12,7 +12,7 @@ books_tsv <- read_tsv("datasets/books.tsv")
 #separating authors
 books_tsv_tidy <- books_tsv %>% 
   separate(author, into = c("author_1", "author_2", "author_3"), sep = " and ")
- 
+
 
 books_txt <- read.delim("datasets/books.txt", sep = "|") 
 #separating authors
