@@ -2,11 +2,10 @@
 ##reading & tidying data
 
 #package loading
-install.packages("readxl")
 library(readxl)
 library(tidyverse) 
 
-#reading in data
+#reading data
 
 books_tsv <- read_tsv("datasets/books.tsv") 
 #separating authors
@@ -28,8 +27,18 @@ ches_2017_modified_tidy <- ches_2017_modified %>%
   pivot_wider(names_from = variable, values_from = value)
 
 
-publishers <- read_xlsx("datasets/publishers.xlsx")
+publishers_sheet_1 <- read_xlsx("datasets/publishers.xlsx", sheet = 1)
+publishers_sheet_2 <- read_xlsx("datasets/publishers.xlsx", sheet = 2)
 
+
+publishers_sheet_1_tidy <- publishers_sheet_1 %>% 
+  separate(city, into = c("city", "state"), sep = ", ")
+
+publishers_sheet_2_tidy <- publishers_sheet_2 %>% 
+  separate(place, into = c("city", "state"), sep = ", ")
+
+# binding the different excel sheets together
+publishers_complete_tidy <- bind_rows(publishers_sheet_1_tidy, publishers_sheet_2_tidy)
 
 # Using excel_sheets, we can get the names of sheets and create a list with them.
 publisher_sheets <- readxl::excel_sheets("datasets/publishers.xlsx")
@@ -37,31 +46,9 @@ publisher_sheets <- as.list(publisher_sheets)
 
 # When we have the list, we createa loop for each sheet and we save the data in the variable "finalData".
 
-## testtesttest
-finalData <- data.frame()
-for (i in 1:length(sheets)){
-  if (nrow(finalData) == 0 ) {
-    data <- read_excel("example.xlsx", sheet = sheets[[i]] )
-    finalData <- data
-  }else{
-    dataNext <- read_excel("example.xlsx", sheet = sheets[[i]] )
-    finalData <-  cbind(finalData,  dataNext)
-  }
-}
-finalData
 
-publishers <- tibble()
-for (i in 1:length(publisher_sheets)){
-  if (nrow(publishers) == 0){
-    data <- read_excel("datasets/publishers.xlsx", sheet = publisher_sheets[[i]])
-    publishers <- data
-  }else{
-    dataNext <- read_excel("datasets/publishers.xlsx", sheet = publisher_sheets[[i]])
-    publishers <- cbind(publishers, dataNext)
-  }
-}
 
-read_excel_allsheets <- function(filename, tibble = TRUE) {
+read_excel_allsheets <- function(filename, tibble = FALSE) {
   # I prefer straight data.frames
   # but if you like tidyverse tibbles (the default with read_excel)
   # then just pass tibble = TRUE
@@ -72,8 +59,11 @@ read_excel_allsheets <- function(filename, tibble = TRUE) {
   x
 }
 
-publishers <- read_excel_allsheets("datasets/publishers.xlsx")
-bind_rows(publishers)
+publisher_testing <- read_excel_allsheets("datasets/publishers.xlsx")
+publisher_testing
+publisher_list_extraction <- publisher_testing %>% 
+  as_tibble()
+
 
 
 spotify2018 <- read_csv("datasets/spotify2018.csv")
