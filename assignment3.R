@@ -16,3 +16,14 @@ imdb_2006_2016_duplicated_movie <- imdb_2006_2016 %>%
 imdb_2006_2016_director_of_longest_movie <- imdb_2006_2016 %>% 
   filter(Runtime..Minutes. == max(Runtime..Minutes.)) %>% 
   select(Director, Title, Runtime..Minutes.)
+
+#highest ranked movie
+imdb_2006_2016_highest_ranked_movie <- imdb_2006_2016 %>% 
+  filter(Rating == max(Rating)) %>% 
+  select(Title, Rating)
+
+#most votes
+imdb_2006_2016_most_votes <- imdb_2006_2016 %>% 
+  filter(Votes == max(Votes)) %>% 
+  select(Title, Votes)
+
