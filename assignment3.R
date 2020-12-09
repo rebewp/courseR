@@ -27,3 +27,7 @@ imdb_2006_2016_most_votes <- imdb_2006_2016 %>%
   filter(Votes == max(Votes)) %>% 
   select(Title, Votes)
 
+#highest revenue ##todo combining in one filter
+imdb_2006_2016_biggest_revenue_2016 <- imdb_2006_2016 %>% 
+  filter(Year == 2016) %>% 
+  filter(Revenue..Millions. == max(Revenue..Millions., na.rm = TRUE))
