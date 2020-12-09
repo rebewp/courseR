@@ -29,7 +29,20 @@ imdb_2006_2016_votes <- imdb_2006_2016 %>%
   filter(Votes > 1791910)
 
 glimpse(imdb_2006_2016)
+
+#todo more testing
 imdb_2006_2016_biggest_revenue_2016 <- imdb_2006_2016 %>% 
-  filter(Revenue..Millions. == max(Revenue..Millions., na.rm = TRUE) & Year == 2016)
+  filter(Year == 2016) %>% 
+  filter(Revenue..Millions. == max(Revenue..Millions., na.rm = TRUE))
 
 max(imdb_2006_2016$Revenue..Millions., na.rm = TRUE)
+test <- imdb_2006_2016 %>% 
+  filter(Revenue..Millions. > 500)
+
+imdb_2006_2016_biggest_revenue_2016_2 <- imdb_2006_2016 %>% 
+  filter(Revenue..Millions. == max(Revenue..Millions., na.rm = TRUE) & Year == 2016)
+
+#revenue in year total
+imdb_2006_2016_combined_revenue_per_year <- imdb_2006_2016 %>% 
+  filter(Year) %>% 
+  mutate(complete_revenue = Revenue..Millions.)
