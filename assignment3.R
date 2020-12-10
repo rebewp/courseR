@@ -29,8 +29,8 @@ imdb_2006_2016_most_votes <- imdb_2006_2016 %>%
 
 #highest revenue ##todo combining in one filter
 imdb_2006_2016_biggest_revenue_2016 <- imdb_2006_2016 %>% 
-  filter(Year == 2016) %>% 
-  filter(Revenue..Millions. == max(Revenue..Millions., na.rm = TRUE))
+  group_by(Year) %>% 
+  filter(Revenue..Millions. == max(Revenue..Millions., na.rm = TRUE) & Year == 2016)
 
 #combined revenue per year
 imdb_2006_2016_combined_revenue_per_year <- imdb_2006_2016 %>% 
@@ -48,3 +48,21 @@ imdb_2006_2016_director_jj_abrams <- imdb_2006_2016 %>%
 #more votes than median
 imdb_2006_2016_more_votes_than_median <- imdb_2006_2016 %>% 
   filter(Votes > median(Votes, na.rm = TRUE))
+
+#mode
+##using helper function
+my_mode <- function(x){ 
+  ta = table(x)
+  tam = max(ta)
+  if (all(ta == tam))
+    mod = NA
+  else
+    if(is.numeric(x))
+      mod = as.numeric(names(ta)[ta == tam])
+  else
+    mod = names(ta)[ta == tam]
+  return(mod)
+}
+
+imdb_2006_2016_mode_of_votes <- imdb_2006_2016 %>% 
+  filter(Rating == my_mode(Rating))
