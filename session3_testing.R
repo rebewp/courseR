@@ -124,6 +124,29 @@ juncker_timeline_posts_per_year <- juncker_timeline_tidy %>%
   group_by(year) %>% 
   summarise(occurrence = n())
 
+juncker_timeline_posts_per_year_plot <- ggplot(juncker_timeline_posts_per_year,
+                                               aes(x = occurrence,
+                                                   y = year)) +
+  geom_point() +
+  ggtitle("Posts of J. Juncker per Year")+
+  coord_flip()
+juncker_timeline_posts_per_year_plot
+
+glimpse(juncker_timeline_posts_per_year)
+
 juncker_timeline_posts_per_month <- juncker_timeline_tidy %>% 
   group_by(month) %>% 
-  summarise(occurrence = n())
+  summarise(occurrence = n()) %>% 
+  select()
+  ggplot(aes(x = month,
+             y = occurrence)) +
+  geom_point()+
+  coord_flip()+
+  ggtitle("Posts of J. Juncker per Month")
+juncker_timeline_posts_per_month
+
+juncker_timeline_posts_per_month <- juncker_timeline_tidy %>% 
+  group_by(month) %>% 
+  summarise(occurrence = n()) %>% 
+  select(month = month(month, label = TRUE))
+month(juncker_timeline_posts_per_month$month, label = TRUE)

@@ -5,7 +5,7 @@
 install.packages("rtweet")
 library(tidyverse)
 library(rtweet)
-
+library(ggplot2)
 
 #Imdb
 ##reading the dataset
@@ -88,3 +88,10 @@ juncker_timeline_posts_per_month <- juncker_timeline_tidy %>%
   summarise(occurrence = n())
 
 ##todo visualisation
+juncker_timeline_posts_per_year_plot <- ggplot(juncker_timeline_posts_per_year,
+                                               aes(x = occurrence,
+                                                   y = year)) +
+  geom_point() +
+  ggtitle("Posts of J. Juncker per Year")+
+  coord_flip()
+juncker_timeline_posts_per_year_plot
