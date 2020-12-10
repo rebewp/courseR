@@ -31,3 +31,8 @@ imdb_2006_2016_most_votes <- imdb_2006_2016 %>%
 imdb_2006_2016_biggest_revenue_2016 <- imdb_2006_2016 %>% 
   filter(Year == 2016) %>% 
   filter(Revenue..Millions. == max(Revenue..Millions., na.rm = TRUE))
+
+#combined revenue per year
+imdb_2006_2016_combined_revenue_per_year <- imdb_2006_2016 %>% 
+  group_by(Year) %>% 
+  summarise(complete_revenue = sum(Revenue..Millions., na.rm = TRUE))
