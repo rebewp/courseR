@@ -77,3 +77,14 @@ imdb_2006_2016_mode_of_votes <- imdb_2006_2016 %>%
 juncker_timeline_tidy <- juncker_timeline %>% 
   select(-(!created_at)) %>% 
   mutate(day = day(created_at), month = month(created_at), year = year(created_at), hour = hour(created_at))
+
+# counting post per year and month in two tibbles
+juncker_timeline_posts_per_year <- juncker_timeline_tidy %>% 
+  group_by(year) %>% 
+  summarise(occurrence = n())
+
+juncker_timeline_posts_per_month <- juncker_timeline_tidy %>% 
+  group_by(month) %>% 
+  summarise(occurrence = n())
+
+##todo visualisation

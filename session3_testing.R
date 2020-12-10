@@ -118,3 +118,12 @@ juncker_timeline_tidy <- juncker_timeline %>%
 ?rtweet
 auth
 file.edit("~/.Renviron")
+
+# counting post per year and month in two tibbles
+juncker_timeline_posts_per_year <- juncker_timeline_tidy %>% 
+  group_by(year) %>% 
+  summarise(occurrence = n())
+
+juncker_timeline_posts_per_month <- juncker_timeline_tidy %>% 
+  group_by(month) %>% 
+  summarise(occurrence = n())
