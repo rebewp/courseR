@@ -72,3 +72,8 @@ imdb_2006_2016_mode_of_votes <- imdb_2006_2016 %>%
 
 
 ##lubridate
+
+#dropping all columns except created_at, initiating new ones: day, month, year, month, hour
+juncker_timeline_tidy <- juncker_timeline %>% 
+  select(-(!created_at)) %>% 
+  mutate(day = day(created_at), month = month(created_at), year = year(created_at), hour = hour(created_at))

@@ -1,4 +1,6 @@
 #testing stuff nr 3
+install.packages("rtweet")
+library(rtweet)
 library(tidyverse)
 library(lubridate)
 #brief overview
@@ -104,10 +106,15 @@ imdb_2006_2016_mode_of_votes <- imdb_2006_2016 %>%
 #lubridate
 juncker_timeline <- get_timeline(user = "@JunckerEU", n = 1000)
 
-#saving as csv #todo needs work
+#saving as csv #todo needs work, still needs work even with second try
 data.table::fwrite(juncker_timeline, file = "juncker_twitter_timeline.csv")
+write_as_csv(juncker_timeline, file_name = "juncker_twitter_timeline_rtweet")
 
 #dropping all columns except created_at, initiating new ones: day, month, year, month, hour
 juncker_timeline_tidy <- juncker_timeline %>% 
   select(-(!created_at)) %>% 
-  mutate(day = day(created_at))
+  mutate(day = day(created_at), month = month(created_at), year = year(created_at), hour = hour(created_at))
+
+?rtweet
+auth
+file.edit("~/.Renviron")
