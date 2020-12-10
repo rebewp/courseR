@@ -41,3 +41,10 @@ imdb_2006_2016_combined_revenue_per_year <- imdb_2006_2016 %>%
 imdb_2006_2016_runtime_above_average <- imdb_2006_2016 %>% 
   filter(Runtime..Minutes. > mean(Runtime..Minutes.))
 
+#direceted by jj abrams
+imdb_2006_2016_director_jj_abrams <- imdb_2006_2016 %>% 
+  filter(Director == "J.J. Abrams")
+
+#more votes than median
+imdb_2006_2016_more_votes_than_median <- imdb_2006_2016 %>% 
+  filter(Votes > median(Votes, na.rm = TRUE))
