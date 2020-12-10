@@ -2,7 +2,10 @@
 ##Manipulating data, dates and factors
 
 #packages as usual
+install.packages("rtweet")
 library(tidyverse)
+library(rtweet)
+
 
 #Imdb
 ##reading the dataset
@@ -66,3 +69,6 @@ my_mode <- function(x){
 
 imdb_2006_2016_mode_of_votes <- imdb_2006_2016 %>% 
   filter(Rating == my_mode(Rating))
+
+
+##lubridate
