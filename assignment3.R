@@ -36,3 +36,8 @@ imdb_2006_2016_biggest_revenue_2016 <- imdb_2006_2016 %>%
 imdb_2006_2016_combined_revenue_per_year <- imdb_2006_2016 %>% 
   group_by(Year) %>% 
   summarise(complete_revenue = sum(Revenue..Millions., na.rm = TRUE))
+
+##more than average runtime
+imdb_2006_2016_runtime_above_average <- imdb_2006_2016 %>% 
+  filter(Runtime..Minutes. > mean(Runtime..Minutes.))
+
