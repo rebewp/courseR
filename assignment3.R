@@ -84,7 +84,7 @@ juncker_timeline_posts_per_year <- juncker_timeline_tidy %>%
   summarise(occurrence = n())
 
 juncker_timeline_posts_per_month <- juncker_timeline_tidy %>% 
-  group_by(month) %>% 
+  group_by(month) %>%   
   summarise(occurrence = n())
 
 ##todo visualisation
