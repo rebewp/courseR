@@ -130,3 +130,7 @@ juncker_timeline_tidy_months_rounded <- juncker_timeline_tidy %>%
 ess2016_party_vote_fct <- ess2016 %>% 
   mutate(party_vote_fct = as_factor(party_vote)) %>% 
   select(-(!party_vote_fct))
+
+#finding the four most common parties
+sort(table(ess2016_party_vote_fct$party_vote_fct),decreasing=TRUE)[1:4]
+

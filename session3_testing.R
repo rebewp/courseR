@@ -197,3 +197,20 @@ ess2016_party_vote_fct <- ess2016 %>%
 
 head(ess2016_party_vote_fct)
 ?rename
+
+# sort(table(variable),decreasing=TRUE)[1:3]
+sort(table(ess2016_party_vote_fct$party_vote_fct),decreasing=TRUE)[1:4]
+
+#renaming
+##fct_recode
+most_common_parties <- c("CDU/CSU", "SPD", "Die Linke", "Bündnis 90/ Die Grünen")
+
+ess2016_party_vote_fct_recode <-fct_recode(ess2016_party_vote_fct$party_vote_fct, "Afd" = "Other",
+                                           "FDP" = "Other",
+                                           "Andere Partei" = "Other",
+                                           "Piratenpartei" = "Other",
+                                           "NPD" = "Other")
+
+
+##fct_collapse
+##fct_lump
