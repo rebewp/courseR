@@ -181,3 +181,19 @@ juncker_timeline_tidy_months_rounded <- juncker_timeline_tidy %>%
 
 round_date(juncker_timeline_tidy$created_at, "month")
 
+#forcats
+##reading ess2016.csv
+ess2016 <- read_csv("datasets/number_3/ess2016_ger.csv")
+ess2016_2 <- read.csv("datasets/number_3/ess2016_ger.csv")
+ess2016_2$party_vote
+#converting party_code to party_code_fct
+##no variable party_code available, working with party_vote instead
+ess2016_party_vote_fct <- ess2016 %>% 
+  mutate(party_vote_fct = as_factor(party_vote)) %>% 
+  select(-(!party_vote_fct))
+  
+
+  
+
+head(ess2016_party_vote_fct)
+?rename

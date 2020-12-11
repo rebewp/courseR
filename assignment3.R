@@ -121,3 +121,12 @@ juncker_timeline_posts_per_month_plot
 #maybe makes more sense because of gaining more information, in this case also the year, out of one column(?)
 juncker_timeline_tidy_months_rounded <- juncker_timeline_tidy %>% 
   mutate(created_at = round_date(created_at, "month"))
+
+
+#forcats
+
+#converting party_code to party_code_fct
+##no variable party_code available, working with party_vote instead
+ess2016_party_vote_fct <- ess2016 %>% 
+  mutate(party_vote_fct = as_factor(party_vote)) %>% 
+  select(-(!party_vote_fct))
