@@ -92,11 +92,12 @@ juncker_timeline_posts_per_year <- juncker_timeline_tidy %>%
   summarise(occurrence = n())
 
 juncker_timeline_posts_per_month <- juncker_timeline_tidy %>% 
+  mutate(month = month(month, label = TRUE)) %>% 
   group_by(month) %>%   
   summarise(occurrence = n())
 
-##todo visualisation
-##visualisation years
+#visualization
+##visualization years
 juncker_timeline_posts_per_year_plot <- ggplot(juncker_timeline_posts_per_year,
                                                aes(x = occurrence,
                                                    y = year)) +
@@ -106,14 +107,17 @@ juncker_timeline_posts_per_year_plot <- ggplot(juncker_timeline_posts_per_year,
   theme_bw()
 juncker_timeline_posts_per_year_plot
 
-##visualisation months
-juncker_timeline_posts_per_month <- juncker_timeline_tidy %>% 
-  mutate(month = month(month, label = TRUE)) %>% 
-  group_by(month) %>% 
-  summarise(occurrence = n()) %>% 
+##visualization months
+  
+juncker_timeline_posts_per_month_plot <- juncker_timeline_posts_per_month %>% 
   ggplot(aes(x = month,
              y = occurrence)) +
   geom_point()+
   theme_bw()+
   ggtitle("Posts of J.C. Juncker per Month (2014 - 2019)")
-juncker_timeline_posts_per_month
+juncker_timeline_posts_per_month_plot
+
+#rounding dates to the first day of month
+#maybe makes more sense because of gaining more information, in this case also the year, out of one column(?)
+juncker_timeline_tidy_months_rounded <- juncker_timeline_tidy %>% 
+  mutate(created_at = round_date(created_at, "month"))

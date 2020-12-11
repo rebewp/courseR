@@ -156,3 +156,28 @@ juncker_timeline_posts_per_month <- juncker_timeline_tidy %>%
   summarise(occurrence = n()) %>% 
   select(month = month(month, label = TRUE))
 month(juncker_timeline_posts_per_month$month, label = TRUE)
+
+#rounding dates to first day of month ?!
+?round_date
+
+x <- ymd_hms("2009-08-03 12:01:59.23")
+round_date(x, ".5s")
+round_date(x, "sec")
+round_date(x, "second")
+round_date(x, "minute")
+round_date(x, "5 mins")
+round_date(x, "hour")
+round_date(x, "2 hours")
+round_date(x, "day")
+round_date(x, "week")
+round_date(x, "month")
+round_date(x, "bimonth")
+round_date(x, "quarter") == round_date(x, "3 months")
+round_date(x, "halfyear")
+round_date(x, "year")
+
+juncker_timeline_tidy_months_rounded <- juncker_timeline_tidy %>% 
+  mutate(created_at = round_date(created_at, "month"))
+
+round_date(juncker_timeline_tidy$created_at, "month")
+
