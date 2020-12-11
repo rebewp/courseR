@@ -2,10 +2,12 @@
 ##Manipulating data, dates and factors
 
 #packages as usual
-install.packages("rtweet")
+#install.packages("rtweet")
+library(lubridate)
 library(tidyverse)
 library(rtweet)
 library(ggplot2)
+
 
 #Imdb
 ##reading the dataset
@@ -73,6 +75,12 @@ imdb_2006_2016_mode_of_votes <- imdb_2006_2016 %>%
 
 ##lubridate
 
+#getting twitter data with rtweet
+juncker_timeline <- get_timeline(user = "@JunckerEU", n = 1000)
+
+#saving timeline as csv in working directory
+write_as_csv(juncker_timeline, file_name = "juncker_twitter_timeline_rtweet")
+
 #dropping all columns except created_at, initiating new ones: day, month, year, month, hour
 juncker_timeline_tidy <- juncker_timeline %>% 
   select(-(!created_at)) %>% 
@@ -88,10 +96,24 @@ juncker_timeline_posts_per_month <- juncker_timeline_tidy %>%
   summarise(occurrence = n())
 
 ##todo visualisation
+##visualisation years
 juncker_timeline_posts_per_year_plot <- ggplot(juncker_timeline_posts_per_year,
                                                aes(x = occurrence,
                                                    y = year)) +
   geom_point() +
-  ggtitle("Posts of J. Juncker per Year")+
-  coord_flip()
+  ggtitle("Posts of J.C. Juncker per Year")+
+  coord_flip()+
+  theme_bw()
 juncker_timeline_posts_per_year_plot
+
+##visualisation months
+juncker_timeline_posts_per_month <- juncker_timeline_tidy %>% 
+  mutate(month = month(month, label = TRUE)) %>% 
+  group_by(month) %>% 
+  summarise(occurrence = n()) %>% 
+  ggplot(aes(x = month,
+             y = occurrence)) +
+  geom_point()+
+  theme_bw()+
+  ggtitle("Posts of J.C. Juncker per Month (2014 - 2019)")
+juncker_timeline_posts_per_month

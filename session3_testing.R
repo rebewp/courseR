@@ -116,8 +116,8 @@ juncker_timeline_tidy <- juncker_timeline %>%
   mutate(day = day(created_at), month = month(created_at), year = year(created_at), hour = hour(created_at))
 
 ?rtweet
-auth
-file.edit("~/.Renviron")
+#auth
+#file.edit("~/.Renviron")
 
 # counting post per year and month in two tibbles
 juncker_timeline_posts_per_year <- juncker_timeline_tidy %>% 
@@ -135,15 +135,21 @@ juncker_timeline_posts_per_year_plot
 glimpse(juncker_timeline_posts_per_year)
 
 juncker_timeline_posts_per_month <- juncker_timeline_tidy %>% 
+  mutate(month = month(month, label = TRUE)) %>% 
   group_by(month) %>% 
   summarise(occurrence = n()) %>% 
-  select()
   ggplot(aes(x = month,
              y = occurrence)) +
   geom_point()+
-  coord_flip()+
-  ggtitle("Posts of J. Juncker per Month")
+  ggtitle("Posts of J.C. Juncker per Month (2014 - 2019)")
 juncker_timeline_posts_per_month
+
+months <- c("Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez")
+
+juncker_timeline_tidy_months <- juncker_timeline_tidy %>% 
+  mutate(month = month(month, label = TRUE))
+  
+
 
 juncker_timeline_posts_per_month <- juncker_timeline_tidy %>% 
   group_by(month) %>% 
