@@ -7,7 +7,7 @@ library(gmodels)
 
 ess_2018 <- read_sav("datasets/ESS9e03.sav")
 
-#Aufgabe 1
+##Aufgabe 1
 #Konfidenzintervall "government should reduce difference in income levels" == gincdif
 #agree strongly - disagree strogly, afd, fdp, linke
 #90% & 99% kfi
@@ -42,9 +42,20 @@ linke_konfidenzintervall_90 <- ci(as.double(ess_2018_linke$gincdif), 0.90)
 linke_konfidenzintervall_99 <- ci(as.double(ess_2018_linke$gincdif), 0.99)
 
 
+##Aufgabe2
+#T-Test linke und fdp wähler unterschied afd
 
-data <- iris
-ci(data$Sepal.Length, 0.90)
+#vergleich linke und afd
+ess_2018_linke_afd <- ess_2018 %>% 
+  filter(prtvede2 == 6 | prtvede2 == 3) %>% 
+  select(-(!gincdif & !prtvede2))
 
-glimpse(data)
-glimpse(ess_2018_afd_agree)
+t.test(ess_2018_linke_afd$gincdif ~ ess_2018_linke_afd$prtvede2, var.equal = FALSE)
+
+#vergleich fdp und afd
+ess_2018_fdp_afd <- ess_2018 %>% 
+  filter(prtvede2 == 6 | prtvede2 == 5) %>% 
+  select(-(!gincdif & !prtvede2))
+
+t.test(ess_2018_fdp_afd$gincdif ~ ess_2018_fdp_afd$prtvede2, var.equl = FALSE)
+
