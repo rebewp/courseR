@@ -59,3 +59,33 @@ ess_2018_fdp_afd <- ess_2018 %>%
 
 t.test(ess_2018_fdp_afd$gincdif ~ ess_2018_fdp_afd$prtvede2, var.equl = FALSE)
 
+
+##Aufgabe3
+#vergleich zufriedenheit wähler*innen regierungsparteien - nichtregierungsparteien
+#de, at, pl
+#stfdem
+
+#Deutschland und Österreich 
+#prtvtcat at wahlen -> övp & grüne
+#prtvede2 de wahlen -> cdu/csu & spd
+ess_2018_de_at <- ess_2018 %>% 
+  filter(cntry == "AT" | cntry == "DE") %>% 
+  mutate(regparty_gewaehlt_at = case_when(
+    prtvtcat == 2  ~ "Yes",
+    prtvtcat == 5 ~ "Yes",
+    prtvtcat == NA ~ "NA",
+    TRUE ~ "No"),
+    regparty_gewaehlt_de = case_when(
+      prtvede2 == 1 ~ "Yes",
+      prtvede2 == 2 ~ "Yes",
+      prtvede2 == NA ~ "NA",
+      TRUE ~ "No"
+    ))
+
+ess_2018_de_at$regparty_gewaehlt_de
+
+#Deutschland und Polen
+ess_2018_de_pl <- ess_2018 %>% 
+  filter(cntry == "PL" | cntry == "DE")
+
+
