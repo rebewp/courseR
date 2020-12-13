@@ -17,42 +17,30 @@ ess_2018$gincdif
 ess_2018$prtvede2
 
 #afd
-ess_2018_afd_agree <- ess_2018 %>% 
-  filter(gincdif == 1, prtvede2 == 6) %>% 
+ess_2018_afd <- ess_2018 %>% 
+  filter(prtvede2 == 6) %>% 
   select(-(!gincdif & !prtvede2))
 
-ess_2018_afd_disagree <- ess_2018 %>% 
-  filter(gincdif == 5, prtvede2 == 6) %>% 
-  select(-(!gincdif & !prtvede2))
-
-#linke
-ess_2018_linke_agree <- ess_2018 %>% 
-  filter(gincdif == 1, prtvede2 == 3) %>% 
-  select(-(!gincdif & !prtvede2))
-
-ess_2018_linke_disagree <- ess_2018 %>% 
-  filter(gincdif == 5, prtvede2 == 3) %>% 
-  select(-(!gincdif & !prtvede2))
+afd_konfidenzintervall_90 <- ci(as.double(ess_2018_afd$gincdif), 0.90)
+afd_konfidenzintervall_99 <- ci(as.double(ess_2018_afd$gincdif), 0.99)
 
 #fdp
-ess_2018_fdp_agree <- ess_2018 %>% 
-  filter(gincdif == 1, prtvede2 == 5) %>% 
+ess_2018_fdp <- ess_2018 %>% 
+  filter(prtvede2 == 5) %>% 
   select(-(!gincdif & !prtvede2))
 
-ess_2018_fdp_disagree <- ess_2018 %>% 
-  filter(gincdif == 5, prtvede2 == 5) %>% 
-  select(-(!gincdif & !prtvede2))
+fdp_konfidenzintervall_90 <- ci(as.double(ess_2018_fdp$gincdif), 0.90)
+fdp_konfidenzintervall_90 <- ci(as.double(ess_2018_fdp$gincdif), 0.99)
+
 
 #linke
 ess_2018_linke <- ess_2018 %>% 
   filter(prtvede2 == 3) %>% 
   select(-(!gincdif & !prtvede2))
 
-linke_konfidenzintervall <- ci(as.double(ess_2018_linke$gincdif), 0.90)
-linke_konfidenzintervall
+linke_konfidenzintervall_90 <- ci(as.double(ess_2018_linke$gincdif), 0.90)
+linke_konfidenzintervall_99 <- ci(as.double(ess_2018_linke$gincdif), 0.99)
 
-ci(as.double(ess_2018_afd_agree$gincdif), 0.90)
-ci(as.double(ess_2018_afd_agree$gincdif), 0.99)
 
 
 data <- iris
