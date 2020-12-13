@@ -71,17 +71,17 @@ t.test(ess_2018_fdp_afd$gincdif ~ ess_2018_fdp_afd$prtvede2, var.equl = FALSE)
 ess_2018_de_at <- ess_2018 %>% 
   select(cntry, prtvtcat, prtvede2) %>% 
   filter(cntry == "AT" | cntry == "DE") %>% 
-  mutate(regparty_gewaehlt_at = case_when(
-    is.na(prtvtcat) ~ "NA",
+  mutate(regparty_gewaehlt = case_when(
     prtvtcat == 2  ~ "Yes",
     prtvtcat == 5 ~ "Yes",
-    TRUE ~ "No"),
-    regparty_gewaehlt_de = case_when(
-      is.na(prtvede2) ~ "NA",
-      prtvede2 == 1 ~ "Yes",
-      prtvede2 == 2 ~ "Yes",
-      TRUE ~ "No"
-    ))
+    prtvede2 == 1 ~ "Yes",
+    prtvede2 == 2 ~ "Yes",
+    TRUE ~ "No")
+    )
+
+
+
+
 
 ess_2018_de_at$cntry
 
