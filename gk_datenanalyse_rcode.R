@@ -69,7 +69,7 @@ t.test(ess_2018_fdp_afd$gincdif ~ ess_2018_fdp_afd$prtvede2, var.equl = FALSE)
 #prtvtcat at wahlen -> övp & grüne
 #prtvede2 de wahlen -> cdu/csu & spd
 ess_2018_de_at <- ess_2018 %>% 
-  select(cntry, prtvtcat, prtvede2) %>% 
+  select(cntry, prtvtcat, prtvede2, stfdem) %>% 
   filter(cntry == "AT" | cntry == "DE") %>% 
   mutate(regparty_gewaehlt = case_when(
     prtvtcat == 2  ~ "Yes",
@@ -78,8 +78,27 @@ ess_2018_de_at <- ess_2018 %>%
     prtvede2 == 2 ~ "Yes",
     TRUE ~ "No")
     )
+ess_2018_de <- ess_2018 %>% 
+  select(cntry, prtvede2, stfdem) %>% 
+  filter(cntry == "DE") %>% 
+  mutate(regparty_gewaehlt = case_when(
+    is.na(prtvede2) ~ "NA",
+    prtvede2 == 1 ~ "Yes",
+    prtvede2 == 2 ~ "Yes",
+    TRUE ~ "No")
+  )
 
+ess_2018_at <- ess_2018 %>% 
+  select(cntry, prtvtcat, stfdem) %>% 
+  filter(cntry == "AT") %>% 
+  mutate(regparty_gewaehlt = case_when(
+    is.na(prtvtcat) ~ "NA",
+    prtvtcat == 2  ~ "Yes",
+    prtvtcat == 5 ~ "Yes",
+    TRUE ~ "No")
+  )
 
+t.test(ess_2018_de$stfdem, ess_2018_de$regparty_gewaehlt, var.equal = FALSE)
 
 
 
