@@ -229,5 +229,5 @@ ess2016_party_vote_fct_collapse <- fct_collapse(ess2016_party_vote_fct_without_n
 
 ess2016_party_vote_fct_lump <- fct_lump(ess2016_party_vote_fct_without_na$party_vote_fct,
                                        n = 3)
-ess2016_party_vote_fct_lump
+
 unique(ess2016_party_vote_fct_lump)
