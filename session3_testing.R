@@ -204,6 +204,7 @@ sort(table(ess2016_party_vote_fct$party_vote_fct),decreasing=TRUE)[1:4]
 #renaming
 ?fct_recode
 most_common_parties <- c("CDU/CSU", "SPD", "Die Linke", "Bündnis 90/ Die Grünen")
+other_parties <- c("NPD", "AfD", "FDP", "Andere Partei", "Piratenpartei")
 
 ess2016_party_vote_fct_without_na <-ess2016_party_vote_fct %>% 
   filter(!is.na(party_vote_fct))
@@ -221,4 +222,12 @@ x <- factor(c("apple", "bear", "banana", "dear"))
 x
 fct_recode(as.factor(x), fruit = "apple", fruit = "banana")
 ##fct_collapse
+ess2016_party_vote_fct_collapse <- fct_collapse(ess2016_party_vote_fct_without_na$party_vote_fct, 
+               Other = c("NPD", "AfD", "FDP", "Andere Partei", "Piratenpartei"))
+
 ##fct_lump
+
+ess2016_party_vote_fct_lump <- fct_lump(ess2016_party_vote_fct_without_na$party_vote_fct,
+                                       n = 3)
+ess2016_party_vote_fct_lump
+unique(ess2016_party_vote_fct_lump)

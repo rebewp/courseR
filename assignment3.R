@@ -137,15 +137,25 @@ ess2016_party_vote_fct <- ess2016 %>%
   select(-(!party_vote_fct))
 
 #finding the four most common parties
-sort(table(ess2016_party_vote_fct$party_vote_fct),decreasing=TRUE)[1:4]
+sort(table(ess2016_party_vote_fct$party_vote_fct),decreasing=TRUE)[1:3]
 
-#using recode
+#excluding NA`s`
 ess2016_party_vote_fct_without_na <-ess2016_party_vote_fct %>% 
   filter(!is.na(party_vote_fct))
 
+#using recode
 ess2016_party_vote_fct_recode <-fct_recode(ess2016_party_vote_fct_without_na$party_vote_fct, 
                                            Other = "NPD", 
                                            Other = "AfD",
                                            Other = "FDP",
+                                           Other = "Die Linke",
                                            Other = "Andere Partei",
                                            Other = "Piratenpartei")
+
+#using collapse
+ess2016_party_vote_fct_collapse <- fct_collapse(ess2016_party_vote_fct_without_na$party_vote_fct, 
+                                                Other = c("NPD", "Die Linke", "AfD", "FDP", "Andere Partei", "Piratenpartei"))
+
+#using lump
+ess2016_party_vote_fct_lump <- fct_lump(ess2016_party_vote_fct_without_na$party_vote_fct,
+                                        n = 3)
