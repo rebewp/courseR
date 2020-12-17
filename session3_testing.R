@@ -206,28 +206,39 @@ sort(table(ess2016_party_vote_fct$party_vote_fct),decreasing=TRUE)[1:4]
 most_common_parties <- c("CDU/CSU", "SPD", "Die Linke", "Bündnis 90/ Die Grünen")
 other_parties <- c("NPD", "AfD", "FDP", "Andere Partei", "Piratenpartei")
 
-ess2016_party_vote_fct_without_na <-ess2016_party_vote_fct %>% 
+#samesame dropping nas 
+ess2016_party_vote_fct_without_na <- ess2016_party_vote_fct %>% 
   filter(!is.na(party_vote_fct))
+ess2016_party_vote_fct_without_na_1 <- ess2016_party_vote_fct %>% 
+  drop_na()
 
-ess2016_party_vote_fct_recode <-fct_recode(ess2016_party_vote_fct_without_na$party_vote_fct, 
-                                           Other = "NPD", 
-                                           Other = "AfD",
-                                           Other = "FDP",
-                                           Other = "Andere Partei",
-                                           Other = "Piratenpartei")
-
-ess2016_party_vote_fct_recode
+ess2016_party_vote_fct_recode <- ess2016_party_vote_fct_without_na %>% 
+  group_by(party_vote_fct) %>% 
+  mutate(party_vote_fct = fct_recode(party_vote_fct, 
+                                            "Other" = "NPD", 
+                                            "Other" = "AfD",
+                                            "Other" = "FDP",
+                                            "Other" = "Andere Partei",
+                                            "Other" = "Piratenpartei"))
+  
 
 x <- factor(c("apple", "bear", "banana", "dear"))
 x
 fct_recode(as.factor(x), fruit = "apple", fruit = "banana")
 ##fct_collapse
-ess2016_party_vote_fct_collapse <- fct_collapse(ess2016_party_vote_fct_without_na$party_vote_fct, 
-               Other = c("NPD", "AfD", "FDP", "Andere Partei", "Piratenpartei"))
+ess2016_party_vote_fct_collapse <- ess2016_party_vote_fct_without_na %>% 
+  group_by(party_vote_fct) %>% 
+  mutate(party_vote_fct = fct_collapse(party_vote_fct, 
+               Other = c("NPD", "AfD", "FDP", "Andere Partei", "Piratenpartei")))
 
 ##fct_lump
 
-ess2016_party_vote_fct_lump <- fct_lump(ess2016_party_vote_fct_without_na$party_vote_fct,
-                                       n = 3)
+ess2016_party_vote_fct_lump <- ess2016_party_vote_fct_without_na %>% 
+  mutate(party_vote_fct = fct_lump(party_vote_fct,
+                                       n = 4))
+  
 
 unique(ess2016_party_vote_fct_lump)
+unique(ess2016_party_vote_fct_lump)
+
+fct_reorder(ess2016_party_vote_fct_lump)

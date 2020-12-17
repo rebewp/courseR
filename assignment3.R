@@ -144,18 +144,23 @@ ess2016_party_vote_fct_without_na <-ess2016_party_vote_fct %>%
   filter(!is.na(party_vote_fct))
 
 #using recode
-ess2016_party_vote_fct_recode <-fct_recode(ess2016_party_vote_fct_without_na$party_vote_fct, 
-                                           Other = "NPD", 
-                                           Other = "AfD",
-                                           Other = "FDP",
-                                           Other = "Die Linke",
-                                           Other = "Andere Partei",
-                                           Other = "Piratenpartei")
+ess2016_party_vote_fct_recode <- ess2016_party_vote_fct_without_na %>% 
+  group_by(party_vote_fct) %>% 
+  mutate(party_vote_fct = fct_recode(party_vote_fct, 
+                                     "Other" = "NPD", 
+                                     "Other" = "AfD",
+                                     "Other" = "FDP",
+                                     "Other" = "Andere Partei",
+                                     "Other" = "Piratenpartei"))
 
 #using collapse
-ess2016_party_vote_fct_collapse <- fct_collapse(ess2016_party_vote_fct_without_na$party_vote_fct, 
-                                                Other = c("NPD", "Die Linke", "AfD", "FDP", "Andere Partei", "Piratenpartei"))
-
+ess2016_party_vote_fct_collapse <- ess2016_party_vote_fct_without_na %>% 
+  group_by(party_vote_fct) %>% 
+  mutate(party_vote_fct = fct_collapse(party_vote_fct, 
+                                       Other = c("NPD", "AfD", "FDP", "Andere Partei", "Piratenpartei")))
 #using lump
-ess2016_party_vote_fct_lump <- fct_lump(ess2016_party_vote_fct_without_na$party_vote_fct,
-                                        n = 3)
+ess2016_party_vote_fct_lump <- ess2016_party_vote_fct_without_na %>% 
+  mutate(party_vote_fct = fct_lump(party_vote_fct,
+                                   n = 4))
+
+
