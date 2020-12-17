@@ -22,7 +22,10 @@ ess_2018_afd <- ess_2018 %>%
   select(-(!gincdif & !prtvede2))
 
 afd_konfidenzintervall_90 <- ci(as.double(ess_2018_afd$gincdif), 0.90)
+afd_konfidenzintervall_90
 afd_konfidenzintervall_99 <- ci(as.double(ess_2018_afd$gincdif), 0.99)
+afd_konfidenzintervall_99
+
 
 #fdp
 ess_2018_fdp <- ess_2018 %>% 
@@ -41,7 +44,7 @@ ess_2018_linke <- ess_2018 %>%
 linke_konfidenzintervall_90 <- ci(as.double(ess_2018_linke$gincdif), 0.90)
 linke_konfidenzintervall_99 <- ci(as.double(ess_2018_linke$gincdif), 0.99)
 
-
+?ci
 ##Aufgabe2
 #T-Test linke und fdp wähler unterschied afd
 
@@ -88,6 +91,8 @@ ess_2018_de <- ess_2018 %>%
     TRUE ~ "No")
   )
 
+# laut heinrich filtr einbauen:
+#filter(!is.na(prtvede2) )
 ess_2018_at <- ess_2018 %>% 
   select(cntry, prtvtcat, stfdem) %>% 
   filter(cntry == "AT") %>% 

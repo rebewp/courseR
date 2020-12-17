@@ -125,6 +125,11 @@ juncker_timeline_tidy_months_rounded <- juncker_timeline_tidy %>%
 
 #forcats
 
+#reading ess
+##reading ess2016.csv
+ess2016 <- read_csv("datasets/number_3/ess2016_ger.csv")
+ess2016$party_vote
+
 #converting party_code to party_code_fct
 ##no variable party_code available, working with party_vote instead
 ess2016_party_vote_fct <- ess2016 %>% 
@@ -134,3 +139,13 @@ ess2016_party_vote_fct <- ess2016 %>%
 #finding the four most common parties
 sort(table(ess2016_party_vote_fct$party_vote_fct),decreasing=TRUE)[1:4]
 
+#using recode
+ess2016_party_vote_fct_without_na <-ess2016_party_vote_fct %>% 
+  filter(!is.na(party_vote_fct))
+
+ess2016_party_vote_fct_recode <-fct_recode(ess2016_party_vote_fct_without_na$party_vote_fct, 
+                                           Other = "NPD", 
+                                           Other = "AfD",
+                                           Other = "FDP",
+                                           Other = "Andere Partei",
+                                           Other = "Piratenpartei")
