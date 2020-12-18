@@ -229,7 +229,9 @@ ess2016_party_vote_fct_recode_counting_test <- ess2016_party_vote_fct_recode %>%
 ?fct_reorder 
 
 ess2016_party_vote_fct_without_na_count <- ess2016_party_vote_fct_without_na %>% 
-  mutate(count = count(party_vote_fct))
+  mutate(party_vote_fct = fct_reorder(party_vote_fct, count_partys_$freq))
+
+?count
 
 count_partys_ <- count(ess2016_party_vote_fct_without_na$party_vote_fct)
 count_partys_$
