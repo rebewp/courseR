@@ -139,7 +139,7 @@ ess2016_party_vote_fct <- ess2016 %>%
 #finding the four most common parties
 sort(table(ess2016_party_vote_fct$party_vote_fct),decreasing=TRUE)[1:3]
 
-#excluding NA`s`
+#excluding NA`s
 ess2016_party_vote_fct_without_na <-ess2016_party_vote_fct %>% 
   filter(!is.na(party_vote_fct))
 
