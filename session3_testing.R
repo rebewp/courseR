@@ -219,8 +219,23 @@ ess2016_party_vote_fct_recode <- ess2016_party_vote_fct_without_na %>%
                                             "Other" = "AfD",
                                             "Other" = "FDP",
                                             "Other" = "Andere Partei",
-                                            "Other" = "Piratenpartei"))
-  
+                                            "Other" = "Piratenpartei"),
+         count = count(party_vote_fct),
+         party_vote_fct = fct_reorder(party_vote_fct, n(party_vote_fct)))
+ ?fct_reorder 
+df <- tibble::tribble(
+  ~color,     ~a, ~b,
+  "blue",      1,  2,
+  "green",     6,  2,
+  "purple",    3,  3,
+  "red",       2,  3,
+  "yellow",    5,  1
+)
+df$color <- factor(df$color)
+fct_reorder(df$color, df$a, min)
+count(df$a)
+n(ess2016_party_vote_fct_without_na$party_vote_fct)
+
 
 x <- factor(c("apple", "bear", "banana", "dear"))
 x
@@ -237,8 +252,15 @@ ess2016_party_vote_fct_lump <- ess2016_party_vote_fct_without_na %>%
   mutate(party_vote_fct = fct_lump(party_vote_fct,
                                        n = 4))
   
+ess2016_party_vote_fct_lump <- ess2016_party_vote_fct_without_na %>% 
+  summarise(apperance_count = count(ess2016_party_vote_fct_lump)) %>% 
+  mutate(party_vote_fct = fct_lump(party_vote_fct,
+                                   n = 4))
+
 
 unique(ess2016_party_vote_fct_lump)
 unique(ess2016_party_vote_fct_lump)
 
 fct_reorder(ess2016_party_vote_fct_lump)
+test <- count(ess2016_party_vote_fct_recode)
+test
