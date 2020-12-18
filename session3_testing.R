@@ -3,6 +3,8 @@ install.packages("rtweet")
 library(rtweet)
 library(tidyverse)
 library(lubridate)
+library(plyr)
+library(dplyr)
 #brief overview
 glimpse(imdb_2006_2016)
 head(imdb_2006_2016)
@@ -219,10 +221,19 @@ ess2016_party_vote_fct_recode <- ess2016_party_vote_fct_without_na %>%
                                             "Other" = "AfD",
                                             "Other" = "FDP",
                                             "Other" = "Andere Partei",
-                                            "Other" = "Piratenpartei"),
-         count = count(party_vote_fct),
-         party_vote_fct = fct_reorder(party_vote_fct, n(party_vote_fct)))
- ?fct_reorder 
+                                            "Other" = "Piratenpartei"))
+ess2016_party_vote_fct_recode_counting_test <- ess2016_party_vote_fct_recode %>% 
+  mutate(party_vote_fct = fct_reorder(party_vote_fct, count(party_vote_fct)))
+
+
+?fct_reorder 
+
+ess2016_party_vote_fct_without_na_count <- ess2016_party_vote_fct_without_na %>% 
+  mutate(count = count(party_vote_fct))
+
+count_partys_ <- count(ess2016_party_vote_fct_without_na$party_vote_fct)
+count_partys_$
+
 df <- tibble::tribble(
   ~color,     ~a, ~b,
   "blue",      1,  2,
@@ -235,7 +246,16 @@ df$color <- factor(df$color)
 fct_reorder(df$color, df$a, min)
 count(df$a)
 n(ess2016_party_vote_fct_without_na$party_vote_fct)
+?count
 
+df <- tribble(
+  ~name,    ~gender,   ~runs,
+  "Max",    "male",       10,
+  "Sandra", "female",      1,
+  "Susan",  "female",      4
+)
+df %>% count(runs)
+df %>% count(gender, wt = runs)
 
 x <- factor(c("apple", "bear", "banana", "dear"))
 x

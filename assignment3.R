@@ -130,7 +130,7 @@ juncker_timeline_tidy_months_rounded <- juncker_timeline_tidy %>%
 ess2016 <- read_csv("datasets/number_3/ess2016_ger.csv")
 ess2016$party_vote
 
-#converting party_code to party_code_fct
+#1. Converting party_code to party_code_fct
 ##no variable party_code available, working with party_vote instead
 ess2016_party_vote_fct <- ess2016 %>% 
   mutate(party_vote_fct = as_factor(party_vote)) %>% 
@@ -143,6 +143,7 @@ sort(table(ess2016_party_vote_fct$party_vote_fct),decreasing=TRUE)[1:3]
 ess2016_party_vote_fct_without_na <-ess2016_party_vote_fct %>% 
   filter(!is.na(party_vote_fct))
 
+#2.
 #using recode
 ess2016_party_vote_fct_recode <- ess2016_party_vote_fct_without_na %>% 
   group_by(party_vote_fct) %>% 
@@ -163,4 +164,6 @@ ess2016_party_vote_fct_lump <- ess2016_party_vote_fct_without_na %>%
   mutate(party_vote_fct = fct_lump(party_vote_fct,
                                    n = 4))
 
+#3. Reordering levels
+#todo
 
