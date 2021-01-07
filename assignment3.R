@@ -1,7 +1,7 @@
 #Assignment 3
 ##Manipulating data, dates and factors
 
-#packages as usual
+#packages
 #install.packages("rtweet")
 library(lubridate)
 library(tidyverse)
@@ -164,6 +164,6 @@ ess2016_party_vote_fct_lump <- ess2016_party_vote_fct_without_na %>%
   mutate(party_vote_fct = fct_lump(party_vote_fct,
                                    n = 4))
 
-#3. Reordering levels
-#todo
+
+
 
