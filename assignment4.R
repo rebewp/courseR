@@ -55,4 +55,15 @@ uk_data <- covid19(uk) %>%
   filter(between(date, ymd("2020-09-01"), ymd("2021-01-01"))) %>% 
   mutate(type = "United Kingdom") %>% 
   select(type, date, average_cases)
-#provided code ending
+#ending provided code 
+
+##plotting
+africa_plot <- ggplot(africa_data,
+                      aes(x = date,
+                          y = average_cases)) +
+  geom_line() +
+  ggtitle("Covid19 cases in Africa") +
+  xlab("Dates") +
+  ylab("Average cases")+
+  theme_bw()
+africa_plot

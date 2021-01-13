@@ -1,0 +1,83 @@
+---
+title: "Exercises Week 4"
+author: "Felix Lennert"
+date: "2020-11-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Assignment #3
+
+## `dplyr`
+
+Open the IMDb file.
+
+1. Find the duplicated movie. How could you go across this? 
+2. Which director has made the longest movie?
+3. What's the highest ranked movie?
+4. Which movie got the most votes?
+5. Which movie had the biggest revenue in 2016?
+6. How much revenue did the movies in the dataset make each year in total?
+7. Filter movies following some conditions:
+    a. More runtime than the average runtime (hint: you could also use `mutate()` before).
+    b. Movies directed by J. J. Abrams.
+    c. More votes than the median of all of the votes.
+    d. The movies which have the most common value (the mode) in terms of rating (`mode()` does exist but will not work in the way you might like it to work -- run the script below and use the `my_mode` function).
+    
+
+```{r}
+## helper function for mode
+
+my_mode <- function(x){ 
+    ta = table(x)
+    tam = max(ta)
+    if (all(ta == tam))
+         mod = NA
+    else
+         if(is.numeric(x))
+    mod = as.numeric(names(ta)[ta == tam])
+    else
+         mod = names(ta)[ta == tam]
+    return(mod)
+}
+
+```
+
+## `lubridate`
+
+The following function gives you around 1000 of the latest tweets by Jean Claude Juncker's official Twitter account (you might consider storing them in a csv_file after downloading them).
+
+```{r eval=FALSE, include=TRUE}
+# install.packages("rtweet")
+library(rtweet)
+juncker_timeline <- get_timeline(user = "@JunckerEU", n = 1000)
+```
+
+Let's focus on the dates -- column name `created_at`.
+
+1. Drop all other columns. Make new columns containing the day, month, year, and hour of the respective postings. 
+
+2. Count the occurrences of years and months (in two different tibbles). Are there any patterns? Think about how you would visualize that (BONUS: try doing it using the basic code I have provided you in the last session). 
+
+3. Round the dates down to the first day of the month. Why does this make more sense than just extracting the month? 
+
+## `forcats`
+
+For now, I will not include too many exercises in here. However, you will have to work with factors extensively when we come to data visualization.
+
+Read in the file `ess2016_ger.csv`
+
+1. Convert the variable `party_code` into a factor variable called `party_code_fct`. Drop all other variables.
+
+2. Look at the distribution of the parties; keep the 4 most common ones, all others should be coded to `Other`. Do it using the following three functions. Which of them was the best for the job?
+    a) using `fct_recode()`
+    b) using `fct_collapse()`
+    c) using `fct_lump()`
+  
+3. Reorder the factor levels according to their number of occurrence.
+
+Assignment is due before our next session, i.e., 2020-12-02. You can hand it in group-wise on GRIPS.

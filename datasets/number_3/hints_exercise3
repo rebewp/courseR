@@ -1,0 +1,23 @@
+# Hints
+
+## `dplyr`
+
+1. lines 290, 303
+2. lines 303, 205, 64 -- alternatively: group_by, filter
+3. line 303 -- alternatively: group_by, filter
+4. line 303 -- alternatively: group_by, filter
+5. lines 119, 303 -- alternatively: filter, group_by, filter
+6. line 278
+7. line 119
+
+## `lubridate`
+
+1. lines 64, 237, 560
+2. line 296 -- for visualization: 784
+3. line 582
+
+## `forcats`
+
+1. lines 726, 64
+2. lines 825, 854, 865
+3. lines 290, 805
