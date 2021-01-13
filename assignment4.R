@@ -62,8 +62,43 @@ africa_plot <- ggplot(africa_data,
                       aes(x = date,
                           y = average_cases)) +
   geom_line() +
-  ggtitle("Covid19 cases in Africa") +
-  xlab("Dates") +
-  ylab("Average cases")+
+  labs(title = "African covid19 cases between Sept.20 - Jan.21",
+       y = "Average cases per Day",
+       x = "Dates") +
   theme_bw()
 africa_plot
+
+##south africa
+south_africa_plot <- ggplot(sa_data,
+                      aes(x = date,
+                          y = average_cases)) +
+  geom_line() +
+  labs(title = "South African covid19 cases Sept.20 - Jan.21",
+       y = "Average cases per Day",
+       x = "Dates") +
+  theme_bw()
+south_africa_plot
+
+#europe
+europe_plot <- ggplot(europe_data,
+                      aes(x = date,
+                          y = average_cases)) +
+  geom_line() +
+  labs(title = "European covid19 between cases Sept.20 - Jan.21",
+       y = "Average cases per Day",
+       x = "Dates") +
+  theme_bw()
+europe_plot
+
+#uk
+uk_plot <- ggplot(uk_data,
+                      aes(x = date,
+                          y = average_cases)) +
+  geom_line() +
+  labs(title = "UK covid19 cases Sept.20 - Jan.21",
+       y = "Average cases per Day",
+       x = "Dates") +
+  theme_bw()
+uk_plot
+
+
