@@ -57,6 +57,20 @@ uk_data <- covid19(uk) %>%
   select(type, date, average_cases)
 #ending provided code 
 
+#testing#
+
+africa_with_south_africa <- rbind(sa_data, africa_data)
+
+complete_africa_plot <- ggplot(africa_with_south_africa,
+                      aes(x = date,
+                          y = average_cases,
+                          color = type)) +
+  geom_line() +
+  labs(title = "African and South African covid19 cases between Sept.20 - Jan.21",
+       y = "7-day averages of new cases per 1 million inhabitants",
+       x = "Dates") +
+  theme_bw()
+complete_africa_plot
 ##plotting
 africa_plot <- ggplot(africa_data,
                       aes(x = date,
@@ -80,6 +94,19 @@ south_africa_plot <- ggplot(sa_data,
 south_africa_plot
 
 #europe
+europe_with_uk <- rbind(uk_data, europe_data)
+
+complete_europe_plot <- ggplot(europe_with_uk,
+                               aes(x = date,
+                                   y = average_cases,
+                                   color = type)) +
+  geom_line() +
+  labs(title = "Europe and UK covid19 cases between Sept.20 - Jan.21",
+       y = "7-day averages of new cases per 1 million inhabitants",
+       x = "Dates") +
+  theme_bw()
+complete_europe_plot
+
 europe_plot <- ggplot(europe_data,
                       aes(x = date,
                           y = average_cases)) +
