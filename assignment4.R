@@ -4,6 +4,7 @@ library(tidyverse)
 library(lubridate)
 library(COVID19)
 library(RcppRoll)
+library(ggpubr)
 
 south_africa <- 710
 uk <- 826
@@ -57,8 +58,8 @@ uk_data <- covid19(uk) %>%
   select(type, date, average_cases)
 #ending provided code 
 
-#testing#
-
+#plotting
+##africa
 africa_with_south_africa <- rbind(sa_data, africa_data)
 
 complete_africa_plot <- ggplot(africa_with_south_africa,
@@ -66,32 +67,13 @@ complete_africa_plot <- ggplot(africa_with_south_africa,
                           y = average_cases,
                           color = type)) +
   geom_line() +
+  scale_color_manual(values = c("green", "orange")) +
   labs(title = "African and South African covid19 cases between Sept.20 - Jan.21",
        y = "7-day averages of new cases per 1 million inhabitants",
        x = "Dates") +
   theme_bw()
 complete_africa_plot
-##plotting
-africa_plot <- ggplot(africa_data,
-                      aes(x = date,
-                          y = average_cases)) +
-  geom_line() +
-  labs(title = "African covid19 cases between Sept.20 - Jan.21",
-       y = "7-day averages of new cases per 1 million inhabitants",
-       x = "Dates") +
-  theme_bw()
-africa_plot
 
-##south africa
-south_africa_plot <- ggplot(sa_data,
-                      aes(x = date,
-                          y = average_cases)) +
-  geom_line() +
-  labs(title = "South African covid19 cases Sept.20 - Jan.21",
-       y = "7-day averages of new cases per 1 million inhabitants",
-       x = "Dates") +
-  theme_bw()
-south_africa_plot
 
 #europe
 europe_with_uk <- rbind(uk_data, europe_data)
@@ -101,31 +83,14 @@ complete_europe_plot <- ggplot(europe_with_uk,
                                    y = average_cases,
                                    color = type)) +
   geom_line() +
+  scale_color_manual(values = c("blue", "red")) +
   labs(title = "Europe and UK covid19 cases between Sept.20 - Jan.21",
        y = "7-day averages of new cases per 1 million inhabitants",
        x = "Dates") +
   theme_bw()
 complete_europe_plot
 
-europe_plot <- ggplot(europe_data,
-                      aes(x = date,
-                          y = average_cases)) +
-  geom_line() +
-  labs(title = "European covid19 between cases Sept.20 - Jan.21",
-       y = "7-day averages of new cases per 1 million inhabitants",
-       x = "Dates") +
-  theme_bw()
-europe_plot
-
-#uk
-uk_plot <- ggplot(uk_data,
-                      aes(x = date,
-                          y = average_cases)) +
-  geom_line() +
-  labs(title = "UK covid19 cases Sept.20 - Jan.21",
-       y = "7-day averages of new cases per 1 million inhabitants",
-       x = "Dates") +
-  theme_bw()
-uk_plot
-
-
+#combining plots
+figure <- ggarrange(complete_europe_plot, complete_africa_plot,
+                    labels = c("A", "B"))
+figure
