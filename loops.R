@@ -10,8 +10,9 @@
 
 #The ith column of a tibble can be accessed as a vector using [[i]]. 
 #The second value of the ith column of a tibble can be accessed using [[i]][[2]]
-
+install.packages("nycflights13")
 library(tidyverse)
+library(nycflights13)
 
 #without purrr
 v <- c("this", "is", "a", "vector")
@@ -79,3 +80,137 @@ has_rownames(cars_2)
 mtcars_tbl <- rownames_to_column(mtcars, var = "car") %>% as_tibble()
 mtcars_tbl
 has_rownames(mtcars)
+
+relevant_columns <- c("mpg", "cyl", "disp", "hp", "gear")
+
+for (var in relevant_columns) {
+  mtcars %>% count(.data[[var]]) %>% print()
+}
+
+for (i in seq_along(cars_tbl)) {
+  cars_tbl[[i]] <- mean(cars_tbl[[i]])
+}
+cars_tbl_sliced <- cars_tbl %>% 
+  slice(1)
+cars_tbl_sliced
+?slice
+
+#map
+add_10 <- function(x) {
+  x + 10
+}
+map(example_dbl, add_10)
+map_dbl(example_dbl, add_10)
+#map tibble as outcome
+map_dfr(cars_tbl, mean)
+#anonymous function in map()
+example_dbl <- c(1.5, 1.3, 1.8, 1.9, 2.3)
+map_dbl(example_dbl, ~{
+  .x + 10
+})
+
+#map2
+map2(10, 5, sample)
+
+?sample
+b <- 1:12
+sample(b,20, replace = TRUE)
+
+#controlling outcome
+typeof(map2(10, 5, sample))
+
+map2(10, 5, sample) %>% flatten_dbl()
+typeof(map2(10, 5, sample) %>% flatten_dbl())
+
+#vector longer than one
+map2(c(10, 5), c(5, 3), sample) 
+
+#more than two arguments
+tibble(
+  n = 10,
+  mean = 1:10,
+  sd = 0.5
+) %>% 
+  pmap(rnorm)
+
+##basic roulette for function testing
+play_roulette <- function(bet, number) {
+  draw <- sample(0:36, 1)
+  tibble(
+    winning_number = draw,
+    your_number = number,
+    your_bet = bet,
+    your_return = if (number == draw) {
+      bet * 36
+    } else {
+      0
+    }
+  )
+}
+
+play_roulette(bet = 1, number = 35)
+
+play_roulette_restricted <- function(bet = 1, number) {
+  if (number > 36) stop("You can only bet on numbers between 0 and 36.")
+  draw <- sample(0:36, 1)
+  tibble(
+    winning_number = draw,
+    your_number = number,
+    your_bet = bet,
+    your_return = if (number == draw) {
+      bet * 36
+    } else {
+      0
+    }
+  )
+  #return(tbl_return)
+}
+play_roulette_restricted(number = 35)
+
+play_roulette_basic <- function(bet = 1, number) {
+  if (number > 36) stop("You can only bet on numbers between 0 and 36.")
+  draw <- sample(0:36, 1)
+  if (number == draw) {
+    return(paste("Nice, you won", as.character(bet * 36), "Dollars"), sep = " ")
+  } else {
+    return("I'm sorry, you lost.")
+  }
+}
+play_roulette_basic(number = 35)
+
+?dplyr_tidy_select
+
+#######################
+#####testing###
+#######################
+
+output <- double(length = ncol(cars_tbl))
+output <- set_names(output, colnames(cars_tbl))
+output
+output <- set_names(output, paste('mean_',sep = "", colnames(cars_tbl)))
+# names don't look good -- for loop and change them to "mean_*" using the paste-function
+for (i in seq_along(cars_tbl)) {
+  output <- set_names(output, paste('mean_',sep = "", colnames(cars_tbl)))
+}
+
+output
+for (i in seq_along(cars_tbl)) {
+  output[[i]] <- mean(cars_tbl[[i]])
+}
+output
+
+?paste
+#r4ds book exercise
+output_cars <- vector("double", ncol(mtcars))
+names(output_cars) <- names(mtcars)
+for (i in seq_along(mtcars)) {
+  output_cars[[i]] <- mean(mtcars[[i]])
+}
+output_cars
+
+output_flights <- vector("list", ncol(nycflights13::flights))
+names(output_flights) <- names(nycflights13::flights)
+for (i in seq_along(nycflights13::flights)) {
+  output_flights[[i]] <- class(nycflights13::flights[[i]])
+}
+output_flights
