@@ -187,12 +187,51 @@ play_roulette_basic(number = 35)
 output <- double(length = ncol(cars_tbl))
 output <- set_names(output, colnames(cars_tbl))
 output
+cars_tbl
+head(cars_tbl)
+#aufgabe2
+output_median <- vector("double", length(cars_tbl))
+names(output_median) <- names(cars_tbl)
+
+for (i in seq_along(cars_tbl)) {
+  output_median[[i]] <- median(cars_tbl[[i]])
+}
+output_median
+#aufgabe1 //todo
+colnames(cars_tbl)
+names(cars_tbl)
+names(output)
 output <- set_names(output, paste('mean_',sep = "", colnames(cars_tbl)))
 # names don't look good -- for loop and change them to "mean_*" using the paste-function
+for (i in seq_along(output)) {
+  output <- paste('mean_',sep = "", colnames(cars_tbl))
+}
+
+name <- names(x)[[i]]
+
+for (i in seq_along(output)) {
+  names(output) <- paste('mean_', names(cars_tbl), sep = "")
+}
+output
+names(output) <- paste('mean_', names(cars_tbl[i]))
+
 for (i in seq_along(cars_tbl)) {
   output <- set_names(output, paste('mean_',sep = "", colnames(cars_tbl)))
 }
-
+test <- paste('mean_', names(cars_tbl), sep = "")
+test
+?colnames
+names(output) <- paste('mean_', names(cars_tbl), sep = "")
+output
+m2 <- cbind(1, 1:4)
+m2
+colnames(m2, do.NULL = FALSE)
+colnames(m2) <- c("x","Y")
+seq_along(output)
+for (i in seq_along(cars_tbl)) {
+  colnames(cars_tbl) <- paste('mean_',cars_tbl)
+}
+cars_tbl
 output
 for (i in seq_along(cars_tbl)) {
   output[[i]] <- mean(cars_tbl[[i]])
@@ -200,6 +239,19 @@ for (i in seq_along(cars_tbl)) {
 output
 
 ?paste
+
+output <- double(length = ncol(cars_tbl))
+output <- set_names(output, colnames(cars_tbl))
+output
+
+map(output, ~{
+  set_names(.x)
+})
+output
+example_dbl <- c(1.5, 1.3, 1.8, 1.9, 2.3)
+map_dbl(example_dbl, ~{
+  .x + 10
+})
 #r4ds book exercise
 output_cars <- vector("double", ncol(mtcars))
 names(output_cars) <- names(mtcars)
