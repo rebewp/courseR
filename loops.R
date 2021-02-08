@@ -191,12 +191,40 @@ cars_tbl
 head(cars_tbl)
 #aufgabe2
 output_median <- vector("double", length(cars_tbl))
-names(output_median) <- names(cars_tbl)
+# not needed 
+#names(output_median) <- names(cars_tbl)
+output_median <- set_names(output_median, paste('median_', colnames(cars_tbl),sep = ""))
 
 for (i in seq_along(cars_tbl)) {
   output_median[[i]] <- median(cars_tbl[[i]])
 }
 output_median
+
+#aufgabe 3
+char_vector <- vector("character", length = 3)
+input <- c("i", "accomplished", "task 3")
+seq_along(char_vector)
+for (i in seq_along(char_vector)) {
+  char_vector[[i]] <- input[[i]]
+}
+char_vector
+
+#aufgabe 4 //todo
+
+tibble(
+  n = 10,
+  mean = 1:10,
+  sd = 0.5
+) %>% 
+  pmap(rnorm)
+?rnorm
+pmap()
+
+#exercises functions
+rescale0to1 <- function(x) {
+  (x - min(x, na.rm = TRUE)) / (max(x, na.rm = TRUE) - min(x, na.rm = TRUE))
+}
+
 #aufgabe1 //todo
 colnames(cars_tbl)
 names(cars_tbl)
