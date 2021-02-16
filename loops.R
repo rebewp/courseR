@@ -230,24 +230,16 @@ colnames(cars_tbl)
 names(cars_tbl)
 names(output)
 output <- set_names(output, paste('mean_',sep = "", colnames(cars_tbl)))
+output
 # names don't look good -- for loop and change them to "mean_*" using the paste-function
 for (i in seq_along(output)) {
-  output <- paste('mean_',sep = "", colnames(cars_tbl))
+  names(output)[i] <- paste('mean_',names(output[i]), sep = "")
 }
 
-name <- names(x)[[i]]
-
-for (i in seq_along(output)) {
-  names(output) <- paste('mean_', names(cars_tbl), sep = "")
-}
 output
-names(output) <- paste('mean_', names(cars_tbl[i]))
 
-for (i in seq_along(cars_tbl)) {
-  output <- set_names(output, paste('mean_',sep = "", colnames(cars_tbl)))
-}
-test <- paste('mean_', names(cars_tbl), sep = "")
-test
+
+
 ?colnames
 names(output) <- paste('mean_', names(cars_tbl), sep = "")
 output
@@ -256,10 +248,7 @@ m2
 colnames(m2, do.NULL = FALSE)
 colnames(m2) <- c("x","Y")
 seq_along(output)
-for (i in seq_along(cars_tbl)) {
-  colnames(cars_tbl) <- paste('mean_',cars_tbl)
-}
-cars_tbl
+
 output
 for (i in seq_along(cars_tbl)) {
   output[[i]] <- mean(cars_tbl[[i]])
@@ -271,15 +260,29 @@ output
 output <- double(length = ncol(cars_tbl))
 output <- set_names(output, colnames(cars_tbl))
 output
+colnames(output) <- c(1:5)
+colnames(cars_tbl)
 
-map(output, ~{
-  set_names(.x)
+map_chr(output, ~{
+ colnames(paste('mean_', sep = ""))
 })
+names(output) <- map_chr(names(output), paste, "mean_", )
 output
+
+names(output) <- map_chr(output, ~ paste(.x,"mean_",names(.x), sep = ""))
+output
+names(output) <- paste("mean_",names(output), sep="")########working fine
+#now with anonymous
+map_chr(output, ~ paste("mean_", sep=""))
+map_chr(output, ~{
+  names(paste("mean"))
+})
+
 example_dbl <- c(1.5, 1.3, 1.8, 1.9, 2.3)
 map_dbl(example_dbl, ~{
   .x + 10
 })
+?colnames
 #r4ds book exercise
 output_cars <- vector("double", ncol(mtcars))
 names(output_cars) <- names(mtcars)
@@ -294,3 +297,44 @@ for (i in seq_along(nycflights13::flights)) {
   output_flights[[i]] <- class(nycflights13::flights[[i]])
 }
 output_flights
+
+#####
+cars_tbl <- mtcars %>% 
+  rownames_to_column(var = "model_name") %>% 
+  select(mpg, cyl, disp, hp, gear)
+glimpse(cars_tbl)
+
+
+output <- double(length = ncol(cars_tbl))
+output <- set_names(output, colnames(cars_tbl))
+output
+str(output)
+# names don't look good -- for loop and change them to "mean_*" using the paste-function
+# example for paste()
+#paste("Pass", "strings", "to", "paste", sep = " ")
+for (i in seq_along(output)) {
+  names(output[i]) <- paste('mean_')
+}
+for (i in seq_along(output)) {
+  print(names(output[i]))
+}
+
+for (names in output) {
+  names <- paste('mean_', output[names],sep = "")
+}
+output
+
+output_1 <- 1:6
+names(output_1) <- letters[1:6]
+output_1
+set_names(output_1)
+set_names(output1)
+output_1
+x
+
+seq_along(output)
+?names  
+?paste
+names(output)
+output[i] <- set_names(paste("mean"))
+output

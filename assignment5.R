@@ -15,7 +15,8 @@ for (i in seq_along(output)) {
   names(output)[i] <- paste('mean_',names(output[i]), sep = "")
 }
 output
-#1 using map()
+#1 using map() 
+##todo
 
 
 #2
