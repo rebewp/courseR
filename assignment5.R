@@ -61,10 +61,22 @@ rescale0to1 <- function(x) {
 
 #2
 #for loop
-roulette_plays <- list()
+roulette_plays_for <- list()
 for (i in 1:10) {
   output_r <- play_roulette_restricted(number = 35)
-  roulette_plays[[i]] <- output_r
+  roulette_plays_for[[i]] <- output_r
 }
-roulette_plays %>% bind_rows()
-roulette_plays
+roulette_play_for_tibble <- roulette_plays_for %>% bind_rows()
+roulette_play_for_tibble
+
+#while
+roulette_plays_while <- list()
+indicator <- 1
+while (indicator <= 10) {
+  output_r <- play_roulette_restricted(number = 35)
+  roulette_plays_while[[indicator]] <- output_r
+  indicator <- indicator + 1
+}
+roulette_play_while_tibble <- roulette_plays_while %>% bind_rows()
+roulette_play_while_tibble
+
