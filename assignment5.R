@@ -58,3 +58,13 @@ tibble_of_pmap
 rescale0to1 <- function(x) {
   (x - min(x, na.rm = TRUE)) / (max(x, na.rm = TRUE) - min(x, na.rm = TRUE))
 }
+
+#2
+#for loop
+roulette_plays <- list()
+for (i in 1:10) {
+  output_r <- play_roulette_restricted(number = 35)
+  roulette_plays[[i]] <- output_r
+}
+roulette_plays %>% bind_rows()
+roulette_plays
