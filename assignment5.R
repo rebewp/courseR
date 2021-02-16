@@ -80,3 +80,6 @@ while (indicator <= 10) {
 roulette_play_while_tibble <- roulette_plays_while %>% bind_rows()
 roulette_play_while_tibble
 
+#map #todo
+
+#color bullet proofing
