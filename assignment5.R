@@ -68,6 +68,23 @@ rescale0to1_second_possibility <- function(x) {
 }
 
 #2
+
+play_roulette_restricted <- function(bet = 1, number) {
+  if (number > 36) stop("You can only bet on numbers between 0 and 36.")
+  draw <- sample(0:36, 1)
+  tibble(
+    winning_number = draw,
+    your_number = number,
+    your_bet = bet,
+    your_return = if (number == draw) {
+      bet * 36
+    } else {
+      0
+    }
+  )
+  #return(tbl_return)
+}
+
 #for loop
 roulette_plays_for <- list()
 for (i in 1:10) {
@@ -77,7 +94,7 @@ for (i in 1:10) {
 roulette_play_for_tibble <- roulette_plays_for %>% bind_rows()
 roulette_play_for_tibble
 
-#while
+#while loop
 roulette_plays_while <- list()
 indicator <- 1
 while (indicator <= 10) {
@@ -88,11 +105,15 @@ while (indicator <= 10) {
 roulette_play_while_tibble <- roulette_plays_while %>% bind_rows()
 roulette_play_while_tibble
 
-#map
+#map()
 roulette_plays_map <- list(1,2,3,4,5,6,7,8,9,10)
 
 roulette_plays_map %>% map_dfr(., ~as.list(play_roulette_restricted(number = 35)), .id = "iteration")
 
 
 #color bullet proofing
+
+red_fields <- c(32, 19, 21, 25, 34, 27, 36, 30, 23, 5, 16, 1, 14, 9, 18, 7, 12, 3)
+black_fields <- setdiff(1:36, red_fields)
+zero <- 0
 
