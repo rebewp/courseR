@@ -4,7 +4,8 @@ library(tidyverse)
 cars_tbl <- mtcars %>% 
   rownames_to_column(var = "model_name") %>% 
   select(mpg, cyl, disp, hp, gear)
-#loops
+
+# Loops -------------------------------------------------------------------
 
 output <- double(length = ncol(cars_tbl))
 output <- set_names(output, colnames(cars_tbl))
@@ -53,10 +54,17 @@ y <- tibble(
 tibble_of_pmap <- y %>% pmap(rnorm) %>% set_names(paste("pmap call",rownames(y))) %>% bind_rows 
 tibble_of_pmap
 
-#functions
+
+# Functions ---------------------------------------------------------------
+
 #1
 rescale0to1 <- function(x) {
   (x - min(x, na.rm = TRUE)) / (max(x, na.rm = TRUE) - min(x, na.rm = TRUE))
+}
+
+rescale0to1_second_possibility <- function(x) {
+  range_x <- range(x, na.rm = TRUE)
+  (x - range_x[1] / range_x[2] - range_x[1])
 }
 
 #2
@@ -80,6 +88,11 @@ while (indicator <= 10) {
 roulette_play_while_tibble <- roulette_plays_while %>% bind_rows()
 roulette_play_while_tibble
 
-#map #todo
+#map
+roulette_plays_map <- list(1,2,3,4,5,6,7,8,9,10)
+
+roulette_plays_map %>% map_dfr(., ~as.list(play_roulette_restricted(number = 35)), .id = "iteration")
+
 
 #color bullet proofing
+
