@@ -46,6 +46,16 @@ wiki_governors[48, 2] = "Republican"
 
 ######## tidying 
 
+tidy_us_covid_base_lvl_2 <- us_covid_base_lvl_2 %>% 
+  select(date, administrative_area_level_2, confirmed,deaths, 
+         school_closing, workplace_closing, cancel_events, gatherings_restrictions, transport_closing,
+         stay_home_restrictions, internal_movement_restrictions, international_movement_restrictions,
+         information_campaigns, contact_tracing) %>% 
+  rename(State = administrative_area_level_2) %>% 
+  inner_join(wiki_governors, by = "State")
+
+
+
 
 
 
